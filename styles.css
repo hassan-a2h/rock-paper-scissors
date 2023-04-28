@@ -1,0 +1,12 @@
+.instructions {
+  text-align: center;
+  background-color: black;
+  color: rgba(240, 240, 240, 1);
+  margin-top: 300px;
+}
+
+.moves {
+  text-align: center;
+  background-color: rgb(43, 125, 193);
+  color: rgba(240, 240, 240, 1);
+}

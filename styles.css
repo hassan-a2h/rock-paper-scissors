@@ -1,12 +1,19 @@
-.instructions {
+h2 {
+  font-size: xx-large;
   text-align: center;
-  background-color: black;
-  color: rgba(240, 240, 240, 1);
-  margin-top: 300px;
 }
 
 .moves {
-  text-align: center;
-  background-color: rgb(43, 125, 193);
-  color: rgba(240, 240, 240, 1);
+  display: flex;
+  gap: 40px;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+  flex: 1;
+}
+
+img:hover {
+  cursor: pointer;
 }

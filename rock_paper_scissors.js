@@ -15,14 +15,22 @@ scissors.addEventListener('click', () => {
 });
 
 let userWins = 0,
-  computerWins = 0;
+  computerWins = 0,
+  draws = 0;
 
 function game(move) {
+  if (userWins === 5 || computerWins === 5) {
+    const parent = document.querySelector('.display-result');
+    gameOver(parent);
+    return;
+  }
+
   const computerMove = getComputerMove(),
   userMove = move;
   const winner = oneRound(userMove, computerMove);
+  (winner === 1) ? userWins++ : (winner === 2) ? computerWins++ : draws++;
   displayScore();
-  displayWinner(winner);
+  displayWinner();
 }
 
 function getComputerMove() {
@@ -47,22 +55,35 @@ function oneRound(userMove, computerMove) {
 function displayScore() {
   const winCount = document.querySelector('.wins');
   winCount.setAttribute('style', 'display: flex;');
-  winCount.innerHTML = `<p>User Wins: ${userWins} <br> Computer Wins: ${computerWins}</p>`;
+  winCount.innerHTML = `<p>User Wins: ${userWins} <br> Computer Wins:
+                        ${computerWins}<br>Draws: ${draws}</p>`;
 }
 
-function displayWinner(winner) {
-  const announceWinner = document.querySelector('.round-winner');
-  announceWinner.style.cssText = 'display: flex;';
+function displayWinner() {
+  let announceWinner;
 
-  if (winner === 1) {
-    announceWinner.textContent = 'You Win';
-    userWins++;
+  if (userWins === 5 || computerWins === 5) {
+    announceWinner = document.querySelector('.round-winner');
+    announceWinner.style.cssText = 'display: flex;';
   }
-  else if (winner === 2) {
-    announceWinner.textContent = 'Computer Wins';
-    computerWins++;
+
+  if (userWins === 5) {
+    announceWinner.innerHTML = '<p>You Win</p>';
+    announceWinner.style.cssText += 'background-color: green; color: black;';
   }
-  else {
-    announceWinner.textContent = 'Draw Match';
+  else if (computerWins === 5) {
+    announceWinner.innerHTML = '<p>Computer Wins</p>';
+    announceWinner.style.cssText += 'background-color: red; color: white;';
   }
+}
+
+function gameOver(parent) {
+  if (document.querySelector('.game-over-message')) {
+    return;
+  }
+  const message = document.createElement('div');
+  message.innerHTML = '<p> Game Over </p>';
+  message.classList.add('wins', 'game-over-message');
+  message.style.cssText += 'display:flex; background-color:black; color:white';
+  parent.appendChild(message);
 }
